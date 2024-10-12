@@ -1,9 +1,11 @@
 const express = require('express');
 const { resolve } = require('path');
+let cors = require('cors');
 
 const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(express.static('static'));
 
 let hotels = [
@@ -225,7 +227,7 @@ app.get('/hotels/sort/pricing', (req, res) => {
   } else {
     hotelsCopy.sort(sortHotelByPricehtl);
   }
-  res.json(hotelsCopy);
+  res.json({hotels:hotelsCopy});
 });
 
 function sortHotelByRatinglth(hotel1, hotel2) {
@@ -244,7 +246,7 @@ app.get('/hotels/sort/rating', (req, res) => {
   } else {
     hotelsCopy.sort(sortHotelByRatinghtl);
   }
-  res.json(hotelsCopy);
+  res.json({hotels:hotelsCopy});
 });
 
 function sortHotelByReviewslth(hotel1, hotel2) {
@@ -263,7 +265,7 @@ app.get('/hotels/sort/reviews', (req, res) => {
   } else {
     hotelsCopy.sort(sortHotelByReviewshtl);
   }
-  res.json(hotelsCopy);
+  res.json({hotels:hotelsCopy});
 });
 
 function filterByAmenity(hotel, amenity) {
@@ -273,7 +275,7 @@ function filterByAmenity(hotel, amenity) {
 app.get('/hotels/filter/amenity', (req, res) => {
   let amenity = req.query.amenity.toLowerCase();
   let result = hotels.filter((hotel) => filterByAmenity(hotel, amenity));
-  res.json(result);
+  res.json({hotels:result});
 });
 
 function filterByCountry(hotel, country) {
@@ -283,7 +285,7 @@ function filterByCountry(hotel, country) {
 app.get('/hotels/filter/country', (req, res) => {
   let country = req.query.country.toLowerCase();
   let result = hotels.filter((hotel) => filterByCountry(hotel, country));
-  res.json(result);
+  res.json({hotels:result});
 });
 
 function filterByCategory(hotel, category) {
@@ -293,7 +295,7 @@ function filterByCategory(hotel, category) {
 app.get('/hotels/filter/category', (req, res) => {
   let category = req.query.category.toLowerCase();
   let result = hotels.filter((hotel) => filterByCategory(hotel, category));
-  res.json(result);
+  res.json({hotels:result});
 });
 
 app.get('/hotels', (req, res) => {
